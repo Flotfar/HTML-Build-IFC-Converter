@@ -1,5 +1,4 @@
 ''' written by Tim McGinley 2022 '''
-''' Edited by Joakim Mørk 2022 '''
 
 from inspect import CO_ASYNC_GENERATOR
 import ifcopenshell
@@ -190,44 +189,44 @@ def classifyBeams(beams):
     beam_entities = ''
     
     for beam in beams:
-
-        # find på et stykke kode her til (if-statement) til bestemmelse af profil
-
+#
         type = "I-Profil"
         name = beam.Name
         material  = 'Material_ERROR'
         length    = 'Lenght_ERROR'
         ref_level = 'Level_ERROR'
-
+#
         #Extracting Reference level
         for definition in beam.IsDefinedBy:
             if definition.is_a('IfcRelDefinesByProperties'):
                 property_set = definition.RelatingPropertyDefinition
-                if property_set.Name == "Pset_Revit_Constraints":
+                if property_set.Name == "PSet_Revit_Constraints":
                     for property in property_set.HasProperties:
                         if property.Name == "Reference Level":
-                            ref_level = property.NominalValue.wrappedValue
-    
+                            ref_level = str(property.NominalValue.wrappedValue)
         #Extracting Length
         for definition in beam.IsDefinedBy:
             if definition.is_a('IfcRelDefinesByProperties'):
                 property_set = definition.RelatingPropertyDefinition
-                if property_set.Name == "Pset_Revit_Dimensions":
+                if property_set.Name == "PSet_Revit_Dimensions":
                     for property in property_set.HasProperties:
                         if property.Name == "Length":
-                            length = round(property.NominalValue.wrappedValue, 3)
-        
+                            length = str(round(property.NominalValue.wrappedValue, 2))
         #Extracting Material
         for definition in beam.IsDefinedBy:
             if definition.is_a('IfcRelDefinesByProperties'):
                 property_set = definition.RelatingPropertyDefinition
-                if property_set.Name == "Pset_Revit_Material and Finishes":
+                if property_set.Name == "PSet_Revit_Materials and Finishes":
                     for property in property_set.HasProperties:
                         if property.Name == "Beam Material":
-                            material = property.NominalValue.wrappedValue
-
-       
-        beam_entities+=7*"\t"+"<beam- class=\""+type+"\"  name=\""+name+"\">  <entities- material=\""+material+"\"  length=\""+length+"\"  level=\""+ref_level+"\"></beam->\n"
-            
+                            material = str(property.NominalValue.wrappedValue)
+        #Extracting Object coordinates
+        xval = round(beam.ObjectPlacement.RelativePlacement.Location.Coordinates[0],3)
+        yval = round(beam.ObjectPlacement.RelativePlacement.Location.Coordinates[1],3)
+        zval = round(beam.ObjectPlacement.RelativePlacement.Location.Coordinates[2],3)
+        coord = str([xval,yval,zval])
+#
+        beam_entities+=7*"\t"+"<beam- class=\""+type+"\"  name=\""+name+"\">  \
+            <entities- material=\""+material+"\"  length=\""+length+"\"  level=\""+ref_level+"\"  placement=\""+coord+"\" >  </beam->\n"
+#   
     return beam_entities
-
