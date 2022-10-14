@@ -1,4 +1,5 @@
 ''' written by Tim McGinley 2022 '''
+''' Edited by Joakim Mørk 2022 '''
 
 from inspect import CO_ASYNC_GENERATOR
 import ifcopenshell
