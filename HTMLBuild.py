@@ -1,5 +1,9 @@
 ''' written by Tim McGinley 2022 '''
-''' Edited by Joakim Mørk 2022 '''
+''' Edited by Joakim B. Mørk 2022 '''
+
+# Additions made to HTMLBuild.py: 
+# - Beam entity loader in 'writeCustomHTML' function, and a structural subfolder to withhold information on structural elements (114-126). 
+# - 'ClassifyBeams' function to load in beam entities (192-237).
 
 from inspect import CO_ASYNC_GENERATOR
 import ifcopenshell
@@ -107,7 +111,6 @@ def writeCustomHTML(model):
     # ---- CLASSIFY THE FLOORS AS LOWER, GROUND OR UPPER AND WRITE TO CUSTOM ENTITIES
     custom+= classifyFloors(floors,site_elev)
 
-
     # ---- ADD STRUCTURAL COSTUM ENTITIES
     custom+=6*"\t"+"<Structural->\n"
     
@@ -118,7 +121,6 @@ def writeCustomHTML(model):
     beams = model.by_type('IfcBeam')
     # beams.sort()
     custom+= classifyBeams(beams)
-
 
     # ---- CLOSE BEAMS
     custom+=7*"\t"+"</Beams->\n"
