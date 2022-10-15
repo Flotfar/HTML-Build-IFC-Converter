@@ -1,5 +1,5 @@
 ''' written by Tim McGinley 2022 '''
-''' Edited by Joakim B. Mørk 2022 '''
+''' Editted by Joakim Mørk, Valdemar Rasmussen, Jonas Munch, Oscar Hansen 2022 '''
 
 # Additions made to HTMLBuild.py: 
 # - Beam entity loader in 'writeCustomHTML' function, and a structural subfolder to withhold information on structural elements (114-126). 
@@ -178,26 +178,23 @@ def classifyFloors(floors,site_elev):
            
         # THE SPAN STUFF SHOULD BE DEALT WITH IN JS...
         
-        floor_entities+=6*"\t"+"<floor- class=\""+type+"\" name='{}'  level='{}' elev=\"{}\" >{}<span class=\"floor_stats\">{}</span>  </floor->\n".format(floor.Name, level, floor.Elevation,floor.Name, round(float(floor.Elevation),3))     
+        floor_entities+=6*"\t"+"<floor- class=\""+type+"\" name='{}'  level='{}' elev=\"{}\" >{}<span class=\"floor_stats\">{}</span>  </floor->\n".format(floor.Name, level, floor.Elevation, floor.Name, round(float(floor.Elevation),3))     
         level-=1
         if (type == "floor_ground"):
             floor_entities+=6*"\t"+"<ground-></ground->\n"
             
     return floor_entities
 
-
-
 def classifyBeams(beams):
 
     beam_entities = ''
+    num = 0
     
     for beam in beams:
 #
         type = "I-Profil"
-        name = beam.Name
-        material  = 'Material_ERROR'
-        length    = 'Lenght_ERROR'
-        ref_level = 'Level_ERROR'
+        num = num+1
+        b_num = "beam"+str(num)
 #
         #Extracting Reference level
         for definition in beam.IsDefinedBy:
@@ -229,7 +226,10 @@ def classifyBeams(beams):
         zval = round(beam.ObjectPlacement.RelativePlacement.Location.Coordinates[2],3)
         coord = str([xval,yval,zval])
 #
-        beam_entities+=7*"\t"+"<beam- class=\""+type+"\"  name=\""+name+"\">  \
-            <entities- material=\""+material+"\"  length=\""+length+"\"  level=\""+ref_level+"\"  placement=\""+coord+"\" >  </beam->\n"
+        beam_entities+=7*"\t"+"<beam- class=\""+type+"\"  name='{}' beam=\"{}\" >{}<entities class=\"entities\"  material=\"{}\"  length='{}'  level='{}'  placement=\"{}\" >{}</entities> </beam->\n".format(beam.Name, num, beam.Name, material, length, ref_level, coord, b_num)
+             
 #   
     return beam_entities
+
+
+#  <entities- class=\"entities\"  material=\""+material+"\"  length=\""+length+"\"  level=\""+ref_level+"\"  placement=\""+coord+"\" > </entities>
