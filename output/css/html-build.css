@@ -1,10 +1,18 @@
 /* written by Tim McGinley 2022 */
+/* editted by Joakim Mørk, Valdemar Rasmussen, Jonas Munch, Oscar Hansen 2022 */
+
+/* Additions made to 'html-build.css': */
+/* - Structural and beam blocks to model (100-126)  */
+/* - Beam information styling (246-266)   */
+/* - Changing some colors and basic formatting  */
+
+
 
 /* model*/
 model- {
 	display:block;
-	background-color:#ffa;
-	width:50%;
+	background-color:rgb(234, 240, 236);
+	width:60%;
 	border:none;
 	color:#1b1b1b;
 	margin:auto;
@@ -15,8 +23,8 @@ model- {
 
 view- {
 	display:block;
-	background-color:#ffc;
-	width:50%;
+	background-color:rgb(96, 161, 103);
+	width:40%;
 	border:none;
 	color:#1b1b1b;
 	margin:auto;
@@ -33,7 +41,7 @@ project- {
 	padding:5px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size:12px;
-	background-color:#ccc;
+	background-color:rgb(177, 90, 90);
 	width:100%;
 	border:none;
 	color:#1b1b1b;
@@ -42,24 +50,6 @@ project- {
 	Float:left;
 }
 
-/*ifcSite */
-site- {
-	display:block;
-	margin-top: 20px;
-}
-
-/* This is not normally used but has uses */
-core- {
-	display:block;
-	background-color:#000;
-	position:relative;
-	padding:2px;
-	left:100px;
-	margin-bottom:0px;
-	border-color: #000;
-	width:50px;
-	color:#1b1b1b;
-}
 
 /*ifcBuilding */
 building- {
@@ -68,7 +58,7 @@ building- {
 	padding:0px;
 	margin:5px;
 	border-color: #000;
-	width:270px;
+	width:450px;
 	color:#1b1b1b;
 	/*border-top: 4px solid black;*/
 	min-height: 20px;
@@ -80,14 +70,14 @@ building- {
 it is container for a block of floors */
 segment- {
 	display:block;
-	background-color:#fff;
+	background-color:rgb(248, 248, 248);
 	border-style: dotted;
 	position:relative;
 	border-color: #000;
 	left:-100px;
 	margin: auto;
 	padding:2px;
-	width:225px;
+	width:400px;
 	margin-top:2px;
 	color:#1b1b1b;
 }
@@ -99,19 +89,49 @@ floor- {
 	position:relative;
 	padding:2px;
 	padding-left:10px;
-	width:230px;
+	width:400px;
 	margin:auto;
 	margin-top:2px;
 	color:#1b1b1b;
 	border-bottom: 4px solid black;
 }
 
+
+structural- {
+	display:block;
+	position:relative;
+	padding:2px;
+	padding-left:10px;
+	width:400px;
+	margin:auto;
+	margin-top:20px;
+	margin-bottom:20px;
+	color:#1b1b1b;
+}
+
+
+beam- {
+	display:block;
+	background-color:rgb(104, 179, 91);
+	position:relative;
+	padding:2px;
+	padding-left:10px;
+	width:400px;
+	left:-12px;
+	margin:auto;
+	margin-top:5px;
+	margin-bottom:5px;
+	color:#1b1b1b;
+	border-bottom: 4px solid black;
+}
+
+
 /* VIEW DEFINITIONS...
 
 /* plan - this contains a plan of the currently selected floor*/
 plan- {
 	display:block;
-	background-color:#ddd;
+	background-color:rgb(255, 255, 255);
 	margin: auto;
 	padding:0px;
 	border-color: #000;
@@ -122,28 +142,29 @@ plan- {
 	overflow: hidden;
 	margin:auto;
 	margin-top:5px;
+	border: 3px solid rgb(255, 255, 255);
 }
 
 /* plan - this contains a plan of the currently selected floor*/
 .plan {
 	display:block;
-	background-color:#fff;
+	background-color:rgb(255, 255, 255);
 	margin:auto;
 	margin-top:5%;
 	margin-bottom:5%;
 	height:100px;
-	width: 200px;
+	width: 95%;
 	color:#1b1b1b;
 	/*border-top: 4px solid black;*/
 	min-height: 20px;
 	overflow: hidden;
-	border: 3px solid black;
+	border: 3px solid rgb(255, 255, 255);
 }
 
 /* properties - this contains the calculated properties*/
 props- {
 	display:block;
-	background-color:#ddd;
+	background-color:rgb(248, 247, 247);
 	margin: auto;
 	padding:0px;
 	border-color: #000;
@@ -154,12 +175,13 @@ props- {
 	overflow: hidden;
 	margin:auto;
 	margin-top:5px;
+	border: 3px solid rgb(255, 255, 255)
 }
 
 /* MEP stuff is in this floor */
 mep- {
 	display:block;
-	background-color:#fff;
+	background-color:rgb(255, 255, 255);
 	position:relative;
 	padding-left:10px;
 	width:220px;
@@ -179,11 +201,11 @@ ground-{
 	padding:2px;
 	padding-left:10px;
 	width:450px;
-	border-top: 6px solid black;
+	border-top: 6px solid rgb(0, 0, 0);
 	
 }
 
-/* STYLING */
+/* #######   FLOOR STYLING  ####### */
 
 /* floor styling */
 .floor_name {
@@ -211,12 +233,33 @@ ground-{
 }
 
 .floor_stats {
-	
 	float:right;
 	padding:0px;
 	font-style: italic;
 	border-radius:5px;
 	background-color:#fff;
+	margin-right:10px;
+	margin-top:0px;
+	
+}
+
+/* #######   BEAM STYLING  ####### */
+
+.beam_name{
+	float:left;
+	padding-left:40px;
+}
+
+.i-profil {
+	border-left: 2px solid black;
+	border-right: 2px solid black;
+}
+
+.entities {
+	float:right;
+	padding:0px;
+	font-style: italic;
+	border-radius:5px;
 	margin-right:10px;
 	margin-top:0px;
 	
