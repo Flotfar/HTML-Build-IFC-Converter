@@ -28,43 +28,60 @@ function main() {
 	// add data to the properties box
 	$('props-').prepend('number of beams is '+num_beams+'');
 	$('props-').prepend('number of columns is '+num_columns+'<br>');
-	$('props-').prepend('STRUCTURAL PROPERTIES:'+'<br>');
+	$('props-').prepend('STRUCTURAL ELEMENTS:'+'<br>');
 	$('props-').prepend(''+'<br>');
 	$('props-').prepend('number of floors is '+num_floors+'<br>');
 	$('props-').prepend('site elevation is '+$('site-').attr('elev')+'<br>');
 	$('props-').prepend('BUILDING PROPERTIES:'+'<br>');
 	
 	// load the plan so we can edit it
-	plan('Group 14 - HTML.Build <br> <br> Click a floor to see the plan');
+	plan('Group 14 - HTML.Build <br><br> - Click on a floor to see the plan <br><br> - Click on a beam to see properties');
 	
-	// The .each() method is unnecessary here:
+	// floor, interactive menu 
 	$( 'floor-' ).each(function() {
 	console.log($(this)[0].innerHTML);
 		$( this ).on("click", function(){
 			//$('plan-').css("background-color","black");
 			
-			changePlan($(this).attr('name') + ':' + $(this).attr('level') + '<br><br> Beams:');
+			changePlan($(this).attr('name') + ':' + $(this).attr('level'));
 			
 			//$( this ).innerHTML
 		});
 	});
+
+	// beam, interactive menu 
+	$( 'beam-' ).each(function() {
+		console.log($(this)[0].innerHTML);
+			$( this ).on("click", function(){
+				//$('plan-').css("background-color","black");
+				
+				changePlan('Crossection: '+ $(this).attr('class')
+				+ '<br><br> Name: ' + $(this).attr('name') 
+				+ '<br><br> Material: ' + $(this).attr('material') 
+				+ '<br><br> Length: ' + $(this).attr('length') 
+				+ '<br><br> Reference level: ' + $(this).attr('level') 
+				+ '<br><br> Placement: ' + $(this).attr('placement'));
+				
+				//$( this ).innerHTML
+			});
+		});
 	
 }
 
 function plan(text) {
-jQuery('<div>', {
-    id: 'plan',
-    class: 'plan',
-    title: 'click a floor to see the plan',
-	html:text
-}).appendTo('plan-');  
+	jQuery('<div>', {
+		id: 'plan',
+		class: 'plan',
+		title: 'click a floor to see the plan',
+		html:text
+	}).appendTo('plan-');  
+		
+	}
 	
-}
-
-function changePlan(text) {
-	$('#plan').html(text);
-}
-
+	function changePlan(text) {
+		$('#plan').html(text);
+	}
+	
 // HTML-Build DOM
 
 // shoulds include...
