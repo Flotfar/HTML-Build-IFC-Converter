@@ -226,7 +226,7 @@ def classifyBeams(beams):
         zval = round(beam.ObjectPlacement.RelativePlacement.Location.Coordinates[2],3)
         coord = str([xval,yval,zval])
 #
-        beam_entities+=7*"\t"+"<beam- class=\""+type+"\"  name='{}' beam=\"{}\" >{}<entities class=\"entities\"  material=\"{}\"  length='{}'  level='{}'  placement=\"{}\" >{}</entities> </beam->\n".format(beam.Name, num, beam.Name, material, length, ref_level, coord, b_num)
+        beam_entities+=7*"\t"+"<beam- class=\""+type+"\"  name='{}' beam=\"{}\" material=\"{}\"  length='{}'  level='{}'  placement=\"{}\">{}<entities class=\"entities\" >{}</entities> </beam->\n".format(beam.Name, num, material, length, ref_level, coord, beam.Name, b_num)
              
 #   
     return beam_entities
